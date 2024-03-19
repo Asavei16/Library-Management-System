@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include ('includes/config.php');
 
 if (strlen($_SESSION['login']) == 0) {
     header('location: index.php');
@@ -24,7 +24,7 @@ if (strlen($_SESSION['login']) == 0) {
     </head>
 
     <body>
-        <?php include('includes/header.php'); ?>
+        <?php include ('includes/header.php'); ?>
         <div class="content-wrapper">
             <div class="container">
                 <div class="row pad-botm">
@@ -45,7 +45,9 @@ if (strlen($_SESSION['login']) == 0) {
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 $listdbooks = $query->rowCount();
                                 ?>
-                                <h3><?php echo htmlentities($listdbooks); ?></h3>
+                                <h3>
+                                    <?php echo htmlentities($listdbooks); ?>
+                                </h3>
                                 Carti listate
                             </div>
                         </div>
@@ -66,7 +68,9 @@ if (strlen($_SESSION['login']) == 0) {
                             $returnedbooks = $query2->rowCount();
                             ?>
 
-                            <h3><?php echo htmlentities($returnedbooks); ?></h3>
+                            <h3>
+                                <?php echo htmlentities($returnedbooks); ?>
+                            </h3>
                             Carti nereturnate
                         </div>
                     </div>
@@ -76,34 +80,104 @@ if (strlen($_SESSION['login']) == 0) {
                             <div class="alert alert-success back-widget-set text-center">
                                 <i class="fa fa-book fa-5x"></i>
                                 <?php
-                            $rsts = 0;
-                            $sid = $_SESSION['stdid'];
-                            $sql2 = "SELECT id from tblissuedbookdetails where StudentID=:sid and (RetrunStatus=:rsts || RetrunStatus is null || RetrunStatus='')";
-                            $query2 = $dbh->prepare($sql2);
-                            $query2->bindParam(':sid', $sid, PDO::PARAM_STR);
-                            $query2->bindParam(':rsts', $rsts, PDO::PARAM_STR);
-                            $query2->execute();
-                            $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
-                            $returnedbooks = $query2->rowCount();
-                            ?>
+                                $rsts = 0;
+                                $sid = $_SESSION['stdid'];
+                                $sql2 = "SELECT id from tblissuedbookdetails where StudentID=:sid and (RetrunStatus=:rsts || RetrunStatus is null || RetrunStatus='')";
+                                $query2 = $dbh->prepare($sql2);
+                                $query2->bindParam(':sid', $sid, PDO::PARAM_STR);
+                                $query2->bindParam(':rsts', $rsts, PDO::PARAM_STR);
+                                $query2->execute();
+                                $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
+                                $returnedbooks = $query2->rowCount();
+                                ?>
 
-                            <h3><?php echo htmlentities($returnedbooks); ?></h3>
+                                <h3>
+                                    <?php echo htmlentities($returnedbooks); ?>
+                                </h3>
                                 Carti imprumutate
                             </div>
                         </div>
                     </a>
 
                 </div>
+                <div class="row pad-botm">
+                    <div class="col-md-12">
+                        <h4 class="header-line">Top categorii la Autonom</h4>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <a href="listed-books.php">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="alert alert-heart back-widget-set text-center">
+                                <i class="fa fa-heart fa-4x"></i>
+
+                                <h3>
+                                    <?php echo htmlentities($listdbooks); ?>
+                                </h3>
+                                Inteligenta Emotionala, Psihologie si Dezvoltare Personala
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="alert alert-warning back-widget-set text-center">
+                            <i class="fa fa-recycle fa-4x"></i>
+                            <h3>
+                                <?php echo htmlentities($returnedbooks); ?>
+                            </h3>
+                            Managementul Resurselor Umane si Cultura Organizationala
+                        </div>
+                    </div>
+
+                    <a href="issued-books.php">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="alert alert-success back-widget-set text-center">
+                                <i class="fa fa-book fa-4x"></i>
+                                <h3>
+                                    <?php echo htmlentities($returnedbooks); ?>
+                                </h3>
+                                Leadership, Strategie si Managementul Companiei
+                            </div>
+                        </div>
+                    </a>
+                    <a href="issued-books.php">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="alert alert-success back-widget-set text-center">
+                                <i class="fa fa-book fa-4x"></i>
+                                <h3>
+                                    <?php echo htmlentities($returnedbooks); ?>
+                                </h3>
+                                Lucrul in Echipa si Comunicare
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="row pad-botm">
+                    <div class="col-md-12">
+                        <h4 class="header-line">Top cititori la Autonom</h4>
+                    </div>
+                </div>
+                <div>
+                    1. Nume1
+                    <br>
+                    2. Nume2
+                    <br>
+                    3. Nume3
+                    <br>
+
+                    4. Nume4
+                </div>
             </div>
-        </div>
 
-        <?php include('includes/footer.php'); ?>
+            <?php include ('includes/footer.php'); ?>
 
-        <script src="assets/js/jquery-1.10.2.js"></script>
-        <!-- BOOTSTRAP SCRIPTS  -->
-        <script src="assets/js/bootstrap.js"></script>
-        <!-- CUSTOM SCRIPTS  -->
-        <script src="assets/js/custom.js"></script>
+            <script src="assets/js/jquery-1.10.2.js"></script>
+            <!-- BOOTSTRAP SCRIPTS  -->
+            <script src="assets/js/bootstrap.js"></script>
+            <!-- CUSTOM SCRIPTS  -->
+            <script src="assets/js/custom.js"></script>
 
     </body>
 
