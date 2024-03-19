@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include ('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else { ?>
@@ -24,7 +24,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     <body>
         <!------MENU SECTION START-->
-        <?php include('includes/header.php'); ?>
+        <?php include ('includes/header.php'); ?>
         <!-- MENU SECTION END-->
         <div class="content-wrapper">
             <div class="container">
@@ -48,8 +48,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 $listdbooks = $query->rowCount();
                                 ?>
-                                <h3><?php echo htmlentities($listdbooks); ?></h3>
-                                Books Listed
+                                <h3>
+                                    <?php echo htmlentities($listdbooks); ?>
+                                </h3>
+                                Carti listate
                             </div>
                         </div>
                     </a>
@@ -68,8 +70,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 $returnedbooks = $query2->rowCount();
                                 ?>
 
-                                <h3><?php echo htmlentities($returnedbooks); ?></h3>
-                                Books Not Returned Yet
+                                <h3>
+                                    <?php echo htmlentities($returnedbooks); ?>
+                                </h3>
+                                Carti imprumutate
                             </div>
                         </div>
                     </a>
@@ -85,8 +89,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 $results3 = $query3->fetchAll(PDO::FETCH_OBJ);
                                 $regstds = $query3->rowCount();
                                 ?>
-                                <h3><?php echo htmlentities($regstds); ?></h3>
-                                Registered Users
+                                <h3>
+                                    <?php echo htmlentities($regstds); ?>
+                                </h3>
+                                Utilizatori inregistrati
                             </div>
                         </div>
                     </a>
@@ -103,8 +109,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 $results4 = $query4->fetchAll(PDO::FETCH_OBJ);
                                 $listdathrs = $query4->rowCount();
                                 ?>
-                                <h3><?php echo htmlentities($listdathrs); ?></h3>
-                                Authors Listed
+                                <h3>
+                                    <?php echo htmlentities($listdathrs); ?>
+                                </h3>
+                                Autori
                             </div>
                         </div>
                     </a>
@@ -123,8 +131,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 $listdcats = $query5->rowCount();
                                 ?>
 
-                                <h3><?php echo htmlentities($listdcats); ?> </h3>
-                                Listed Categories
+                                <h3>
+                                    <?php echo htmlentities($listdcats); ?>
+                                </h3>
+                                Categorii
                             </div>
                         </div>
                     </a>
@@ -132,7 +142,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
             </div>
         </div>
-        <?php include('includes/footer.php'); ?>
+        <?php include ('includes/footer.php'); ?>
         <script src="assets/js/jquery-1.10.2.js"></script>
         <!-- BOOTSTRAP SCRIPTS  -->
         <script src="assets/js/bootstrap.js"></script>

@@ -78,6 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <th>Email</th>
                                                 <th>Telefon</th>
                                                 <th>Data inregistrarii</th>
+                                                <th>Filiala</th>
                                                 <th>Status</th>
                                                 <th>Actiune</th>
                                             </tr>
@@ -97,6 +98,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <td class="center"><?php echo htmlentities($result->EmailId); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->MobileNumber); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->RegDate); ?></td>
+                                                        <td class="center"><?php echo htmlentities($result->Filiala); ?></td>
                                                         <td class="center"><?php if ($result->Status == 1) {
                                                                                 echo htmlentities("Active");
                                                                             } else {

@@ -1,11 +1,11 @@
 <?php
 session_start();
-include('includes/config.php');
+include ('includes/config.php');
 error_reporting(0);
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    if (isset($_POST['add'])) {
+    if (isset ($_POST['add'])) {
         $bookname = $_POST['bookname'];
         $category = $_POST['category'];
         $author = $_POST['author'];
@@ -20,6 +20,8 @@ if (strlen($_SESSION['alogin']) == 0) {
         //rename the image file
         $imgnewname = md5($bookimg . time()) . $extension;
         // Code for move image into directory
+        $filiala = $_POST['filiala'];
+        $sectiune = $_POST['sectiune'];
 
         if (!in_array($extension, $allowed_extensions)) {
             echo "<script>alert('Format invalid. Numai jpg / jpeg/ png /gif format permis');</script>";
@@ -46,7 +48,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     }
 
 
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -69,18 +71,18 @@ if (strlen($_SESSION['alogin']) == 0) {
                     url: "check_availability.php",
                     data: 'isbn=' + $("#isbn").val(),
                     type: "POST",
-                    success: function(data) {
+                    success: function (data) {
                         $("#isbn-availability-status").html(data);
                         $("#loaderIcon").hide();
                     },
-                    error: function() {}
+                    error: function () { }
                 });
             }
         </script>
     </head>
 
     <body>
-        <?php include('includes/header.php'); ?>
+        <?php include ('includes/header.php'); ?>
         <div class="content-wrapper">
             <div class="container">
                 <div class="row pad-botm">
@@ -102,7 +104,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Book Name<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="bookname" autocomplete="off" required />
+                                            <input class="form-control" type="text" name="bookname" autocomplete="off"
+                                                required />
                                         </div>
                                     </div>
 
@@ -120,9 +123,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                                 $cnt = 1;
                                                 if ($query->rowCount() > 0) {
-                                                    foreach ($results as $result) {               ?>
-                                                        <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->CategoryName); ?></option>
-                                                <?php }
+                                                    foreach ($results as $result) { ?>
+                                                        <option value="<?php echo htmlentities($result->id); ?>">
+                                                            <?php echo htmlentities($result->CategoryName); ?>
+                                                        </option>
+                                                    <?php }
                                                 } ?>
                                             </select>
                                         </div>
@@ -141,9 +146,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                                 $cnt = 1;
                                                 if ($query->rowCount() > 0) {
-                                                    foreach ($results as $result) {               ?>
-                                                        <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->AuthorName); ?></option>
-                                                <?php }
+                                                    foreach ($results as $result) { ?>
+                                                        <option value="<?php echo htmlentities($result->id); ?>">
+                                                            <?php echo htmlentities($result->AuthorName); ?>
+                                                        </option>
+                                                    <?php }
                                                 } ?>
                                             </select>
                                         </div>
@@ -152,8 +159,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>ISBN Number<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="isbn" id="isbn" required="required" autocomplete="off" onBlur="checkisbnAvailability()" />
-                                            <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+                                            <input class="form-control" type="text" name="isbn" id="isbn"
+                                                required="required" autocomplete="off" onBlur="checkisbnAvailability()" />
+                                            <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must
+                                                be unique</p>
                                             <span id="isbn-availability-status" style="font-size:12px;"></span>
                                         </div>
                                     </div>
@@ -168,7 +177,55 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Book Picture<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="file" name="bookpic" autocomplete="off" required="required" />
+                                            <input class="form-control" type="file" name="bookpic" autocomplete="off" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label> Filiala<span style="color:red;">*</span></label>
+                                            <select class="form-control" name="filiala" id="filiala" required="required">
+                                                <option value=""> Select Filiala</option>
+                                                <?php
+                                                $status = 1;
+                                                $sql = "SELECT * from  tblfiliala where Status=:status";
+                                                $query = $dbh->prepare($sql);
+                                                $query->bindParam(':status', $status, PDO::PARAM_STR);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                $cnt = 1;
+                                                if ($query->rowCount() > 0) {
+                                                    foreach ($results as $result) { ?>
+                                                        <option value="<?php echo htmlentities($result->id); ?>">
+                                                            <?php echo htmlentities($result->Filiala); ?>
+                                                        </option>
+                                                    <?php }
+                                                } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label> Sectiune<span style="color:red;">*</span></label>
+                                            <select class="form-control" name="sectiune" required="required">
+                                                <option value=""> Selecteaza Sectiune</option>
+                                                <?php
+                                                $status = 1;
+                                                $sql = "SELECT * from  tblsectiune where Status=:status";
+                                                $query = $dbh->prepare($sql);
+                                                $query->bindParam(':status', $status, PDO::PARAM_STR);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                $cnt = 1;
+                                                if ($query->rowCount() > 0) {
+                                                    foreach ($results as $result) { ?>
+                                                        <option value="<?php echo htmlentities($result->id); ?>">
+                                                            <?php echo htmlentities($result->Sectiune); ?>
+                                                        </option>
+                                                    <?php }
+                                                } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <button type="submit" name="add" id="add" class="btn btn-info">Submit </button>
@@ -181,7 +238,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             </div>
         </div>
 
-        <?php include('includes/footer.php'); ?>
+        <?php include ('includes/footer.php'); ?>
         <script src="assets/js/jquery-1.10.2.js"></script>
         <!-- BOOTSTRAP SCRIPTS  -->
         <script src="assets/js/bootstrap.js"></script>
